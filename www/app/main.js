@@ -126,7 +126,7 @@ define(function (require) {
 	 	render: function () {
 	 		var compiledTemplate = Handlebars.compile(this.template),
 	 		populatedTemplate = compiledTemplate(this.data);
-
+	 		console.log(this.data);
 	 		document.getElementById(this.container).innerHTML = populatedTemplate;
 	 	}
 	 };
@@ -173,8 +173,10 @@ define(function (require) {
 	 		var modal = document.getElementById('modal'),
 	 		visibility = modal.style.visibility;	 		
 
-	 		if (visibility == "" || visibility == null || visibility == "visible" ) { 	 			
+	 		if (visibility == null || visibility == "visible" ) { 	 		
 	 			modal.style.visibility = "hidden";
+	 			var modalContent = document.getElementById('modal-content');
+	 			modalContent.innerHTML = '';
 	 		} else {
 	 			modal.style.visibility = "visible";
 	 		}
@@ -194,21 +196,26 @@ define(function (require) {
 	 });
 
 	 document.getElementById('modal').addEventListener("click", function (ev) {
-	 	console.log(ev);
-	 	if (ev.target.id == "modal-close" || ev.target.classList.contains('glyph-icon-remove') || ev.target.id == "modal") {
+	 	if (ev.target.id == "modal-close" || ev.target.classList.contains('glyphicon-remove') || ev.target.id == "modal") {
 	 		App.Util.toggleModal();
 	 	}
 	 });
 
 	 document.getElementById('product-container').addEventListener("click", 
 	 	function(ev) {	 			 		
+	 		
 	 		if (ev.target && (ev.target.nodeName == "DIV" || ev.target.parentNode.classList.contains('product')) ) {
-	 			// TODOD Find Parent with attribute data-id
-	 			sku = ev.target.getAttribute("data-id");
+	 		
+	 			var sku = ev.target.getAttribute("data-id");
+	 		
+	 			if (sku == undefined) {
+	 				sku = ev.target.parentElement.getAttribute('data-id');
+	 			}
+	 			
 	 			App.Mediator.publish('detailUpdate', sku);	 			
 	 			App.Util.toggleModal();
 	 		}
 	 	});
-	 	
+	console.log(App.Templates.productwait);	 	
 	});
 

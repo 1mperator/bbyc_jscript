@@ -57,6 +57,13 @@ nav ul li button {
 	color: #666;
 }
 
+#modal-loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -16px 0 0 -16px;
+}
+
 #modal-close:hover {
 	color: #333;
 }

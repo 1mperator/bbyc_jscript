@@ -15,7 +15,13 @@ define(function () {
 	].join('\n'),
 
 	productdetails = [
+		'<h3>{{name}}</h3>',
+		'<img src="http://www.bestbuy.ca{{thumbnailImage}}" />',
 		'<p>{{shortDescription}}</p>'
+	].join('\n'),
+
+	productwait = [
+		'<img src="/imgs/ajax-loader.gif" class="modal-loader" />'
 	].join('\n');
 
 	return {
