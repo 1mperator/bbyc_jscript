@@ -4,20 +4,27 @@ define(function (require) {
 
 	var App = ( function() {
 
+		// Globals for API End Points
 		var BASE_API_URI = 'http://www.bestbuy.ca/api/v2/json/',
 		DEPT_URI = BASE_API_URI + 'category/Departments',
 		PROD_LIST_URI = BASE_API_URI + 'search?categoryid=',
 		PROD_URI = BASE_API_URI + 'product/';					
 
+		// Include Templates from External File
 		var Templates = require('./templates');
+	
+		// Using the Mediator Pattern to handle the communication between 
+		// Different parts of the MVC system.
 		var Mediator = (function(){
 			
+			// Listen for a Publication from the Mediator Service
 			var subscribe = function (channel, fn) {
 				if (!App.Mediator.channels[channel]) App.Mediator.channels[channel] = [];
 				App.Mediator.channels[channel].push({ context: this, callback: fn});
 				return this;
 			},
 
+			// Publish information to a certain channel
 			publish = function (channel) {
 
 				if (!App.Mediator.channels[channel]) return false;			
@@ -51,9 +58,12 @@ define(function (require) {
 		};	
 
 	})();	
+
 	// ------------------ BEGIN MODELS -----------------------
 	App.Models = {};	
 
+	// Creation of the Models like the views are Object Oriented to ensure quick creation and modification of them.
+	
 	App.Model = function (route, listener, publisher) {
 		this.route = route;
 		this.listener = listener;
@@ -69,6 +79,8 @@ define(function (require) {
 			this.getData();		
 	};
 
+
+	
 	App.Model.prototype = {		
 		constructor: App.Model,		
 		getData: function (data) {
@@ -107,6 +119,7 @@ define(function (require) {
 
 	/**
 	 * View Constructor Function	 
+	 * I implemented both Views and Models as Objects with prototypal inheritance to make construction of each other easier.
 	 */
 	 App.View = function (template, container, listener) {
 	 	this.template = template;
@@ -125,11 +138,14 @@ define(function (require) {
 	 	constructor: App.View,			 	
 	 	render: function () {
 	 		var compiledTemplate = Handlebars.compile(this.template),
-	 		populatedTemplate = compiledTemplate(this.data);
-	 		console.log(this.data);
+	 		populatedTemplate = compiledTemplate(this.data);	 		
 	 		document.getElementById(this.container).innerHTML = populatedTemplate;
 	 	}
 	 };
+
+
+	 // Creating Views
+	 // Note: I would want to make a more robust messaging system where I don't have to explicitly name the subscriptions they need to modify - or at very least happen a little more 'automagically'
 
 	 App.Models.productListing = new App.Model(
 	 	App.DEPT_URI,
@@ -148,6 +164,8 @@ define(function (require) {
 	 	'detailUpdate',
 	 	'detailChange'
 	 );
+
+	 // Creating Views
 
 	 App.Views.departmentView = new App.View(
 	 	App.Templates.navlist, 
@@ -169,6 +187,7 @@ define(function (require) {
 
 	 App.Util = (function () {
 	 	
+	 	// A Utility Function that hides and Shows the Modal
 	 	var toggleModal = function () { 
 	 		var modal = document.getElementById('modal'),
 	 		visibility = modal.style.visibility;	 		
@@ -188,6 +207,9 @@ define(function (require) {
 	 })();
 
 
+	 // Controllers Section
+
+	 // Honestly this part is a mess - I would like to move the Event Listener creation into an object and reference these controllers.
 	 document.getElementById('nav-placeholder').addEventListener("click", function (ev) {
 	 	if (ev.target && ev.target.nodeName == "BUTTON") {
 	 		id = ev.target.getAttribute("data-id");
@@ -216,6 +238,6 @@ define(function (require) {
 	 			App.Util.toggleModal();
 	 		}
 	 	});
-	console.log(App.Templates.productwait);	 	
+	
 	});
 
