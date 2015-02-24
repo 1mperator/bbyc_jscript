@@ -1,4 +1,4 @@
-define(['app/mediator'], function (Mediator) {
+define(['app/mediator', 'app/constants'], function (Mediator, Constants) {
 
 	// ------------------ BEGIN MODELS -----------------------  	
 	// Creation of the Models like the views are Object Oriented to ensure quick creation and modification of them.
@@ -14,8 +14,9 @@ define(['app/mediator'], function (Mediator) {
 			scope.getData(arg)
 		}); 
 
-		//if(route != App.PROD_URI) 
+		if (route != Constants.PROD_URI) {
 			this.getData();     
+		};
 	};		
 
 	Model.prototype = {     		
@@ -25,9 +26,13 @@ define(['app/mediator'], function (Mediator) {
 			this.getJSONP(modRoute, function (response) {
 				scope.publishData(response);				
 			});
+
+			return data;
 		},
 		publishData: function (data) {
 			Mediator.publish(this.publisher, data);
+
+			return data;
 		},
 		getJSONP: function (url, cb) { 
 			//url (without "callback=" parameter!) and callback function

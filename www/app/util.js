@@ -1,21 +1,23 @@
 define(function () {	
 	
 	// A Utility Function that hides and Shows the Modal
-	var toggleModal = function () { 
-		var modal = document.getElementById('modal'),
-		visibility = modal.style.visibility;            
+	var toggleVisibility = function (element, clearContent) { 		
+		
+		if(!element) return "Element has not been provided";
 
-		if (visibility === null || visibility === "visible" ) {           
-			modal.style.visibility = "hidden";
-			var modalContent = document.getElementById('modal-content');
-			modalContent.innerHTML = '';
+		var visibility = element.style.visibility;            
+		console.log(visibility);
+
+		if ( typeof visibility === 'undefined' || visibility == "visible") {
+			element.style.visibility = "hidden";		
+			if (clearContent) document.getElementById('modal-content').innerHTML = '';			
 		} else {
-			modal.style.visibility = "visible";
+			element.style.visibility = "visible";
 		}
 	};
 
 	return {
-		toggleModal: toggleModal
-	}
+		toggleVisibility: toggleVisibility
+	};
 
 });

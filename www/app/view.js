@@ -7,12 +7,12 @@ define(['app/mediator', 'handlebars'], function (Mediator, Handlebars) {
 	 function View (template, container, listener) {
 		
 		this.template = Handlebars.compile(template);
-		this.container = container;             
+		this.container = document.getElementById(container);            
 		this.listener = listener;   
 		this.data = '';     
 		var scope = this;
 		
-		Mediator.subscribe(listener, function (arg) {
+		Mediator.subscribe(listener, function (arg) {			
 			scope.data = arg;
 			scope.render();
 		});
@@ -22,9 +22,8 @@ define(['app/mediator', 'handlebars'], function (Mediator, Handlebars) {
 	 View.prototype = {		
 		render: function () {			
 			var populatedTemplate = this.template(this.data);            
-			document.getElementById(this.container).innerHTML = populatedTemplate;
+			this.container.innerHTML = populatedTemplate;
 		}
 	 };
-
-	 return(View)
+	 return(View);
 });
