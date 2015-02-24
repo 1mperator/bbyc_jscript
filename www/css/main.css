@@ -39,6 +39,14 @@ nav ul li button {
 	margin: 0 10px 10px 0;
 }
 
+.product:hover {
+	cursor: pointer;
+	border: 1px solid rgba(201, 233, 255, 1);
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(201, 233, 255, 0.75);
+	-moz-box-shadow:    0px 0px 10px 0px rgba(201, 233, 255, 0.75);
+	box-shadow:         0px 0px 10px 0px rgba(201, 233, 255, 0.75);
+}
+
 .product-image {
 	max-width: 150px;
 	max-height: 150px;

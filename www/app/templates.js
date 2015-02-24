@@ -1,4 +1,4 @@
-define(function () {
+define(function () {	
 	var navlist = [
 		'{{#each subCategories}}',
 		'<li><button type="button" data-id="{{id}}" class="cat-btn btn btn-default">{{name}}</li>',
@@ -22,11 +22,12 @@ define(function () {
 
 	productwait = [
 		'<img src="/imgs/ajax-loader.gif" class="modal-loader" />'
-	].join('\n');
+	].join('\n');	
 
 	return {
 		navlist: navlist,
 		productlist: productlist,
-		productdetails: productdetails
+		productdetails: productdetails,
+		productwait: productwait
 	};
 });
