@@ -105,3 +105,8 @@ nav ul li button {
 	height: 400px;
 	text-align: center;
 }
+
+
+.loading {
+	margin: 20px auto;
+}

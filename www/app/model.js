@@ -8,11 +8,8 @@ define(['app/mediator', 'app/constants'], function (Mediator, Constants) {
 		this.listener = listener;
 		this.publisher = publisher;             
 		this.data = '';     
-		var scope = this;
-
-		Mediator.subscribe(listener, function (arg) {
-			scope.getData(arg)
-		}); 
+		
+		this.subscribe(listener);		
 
 		if (route != Constants.PROD_URI) {
 			this.getData();     
@@ -20,6 +17,14 @@ define(['app/mediator', 'app/constants'], function (Mediator, Constants) {
 	};		
 
 	Model.prototype = {     		
+		subscribe: function (listener) {
+			var scope = this;
+			Mediator.subscribe(listener, function (arg) {
+				scope.getData(arg);
+			})
+
+			//return Mediator.channel[listener];
+		},
 		getData: function (data) {
 			var scope = this;           
 			var modRoute = (data) ? this.route + data : this.route;			

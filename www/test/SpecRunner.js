@@ -22,7 +22,10 @@ requirejs.config({
   }
 });
 
-var specs = ['spec/modelSpec'];
+var specs = [
+  'spec/modelSpec',
+  'spec/mediatorSpec'
+];
 
 requirejs(['boot'], function() {  
 

@@ -7,7 +7,8 @@ define(function () {
 			channels[channel] = [];
 		}
 		channels[channel].push({context: this, callback: fn});
-		return this;
+		
+		return channels[channel];
 	};
 
 	// Publish information to a certain channel
@@ -18,7 +19,8 @@ define(function () {
 			var subscription = channels[channel][i];
 			subscription.callback.apply(subscription.context, args);
 		}		
-		return this;
+		
+		return channels[channel];
 	};
 
 	return {

@@ -6,7 +6,6 @@ define(function () {
 		if(!element) return "Element has not been provided";
 
 		var visibility = element.style.visibility;            
-		console.log(visibility);
 
 		if ( typeof visibility === 'undefined' || visibility == "visible") {
 			element.style.visibility = "hidden";		
